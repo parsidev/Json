@@ -1,8 +1,5 @@
 <?php namespace Parsidev\Json;
 
-use Webmozart\Json\JsonDecoder;
-use Webmozart\Json\JsonEncoder;
-
 class JsonWrapper
 {
 
@@ -15,22 +12,24 @@ class JsonWrapper
         $this->encoder = new JsonEncoder;
     }
 
-    public static function __callStatic($method, $parameters)
+    public function encoder($data, $schema = null)
     {
-        $self = new static;
-        return $self->__call($method, $parameters);
+        return $this->encoder->encode($data, $schema);
     }
 
-    public function __call($method, $parameters)
+    public function encoderFile($data, $file, $schema = null)
     {
-        $encoder = new ReflectionClass(JsonEncoder::class);
-        if ($encoder->hasMethod($method)) {
-            return call_user_func_array(array($this->encoder, $method), $parameters);
-        }
-        $decoder = new ReflectionClass(JsonDecoder::class);
-        if ($decoder->hasMethod($method)) {
-            return call_user_func_array(array($this->decoder, $method), $parameters);
-        }
-        throw new BadMethodCallException;
+        $this->encoder->encodeFile($data, $file, $schema);
+    }
+
+
+    public function decoder($json, $schema = null)
+    {
+        return $this->decoder->decode($json, $schema);
+    }
+
+    public function decoderFile($file, $schema = null)
+    {
+        return $this->decoder->decodeFile($file, $schema);
     }
 }
