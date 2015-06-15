@@ -1,5 +1,9 @@
 <?php namespace Parsidev\Json;
 
+use Parsidev\Json\Exception\EncodingFailedException;
+use Parsidev\Json\Exception\InvalidSchemaException;
+use Parsidev\Json\Exception\ValidationFailedException;
+
 class JsonEncoder
 {
     const JSON_ARRAY = 1;
@@ -23,6 +27,31 @@ class JsonEncoder
     public function __construct()
     {
         $this->validator = new JsonValidator();
+    }
+
+    public function encodeFile($data, $file, $schema = null)
+    {
+        try {
+            file_put_contents($file, $this->encode($data, $schema));
+        } catch (EncodingFailedException $e) {
+            throw new EncodingFailedException(sprintf(
+                'هنگام رمزگذاری خطا رخ داده است %s: %s',
+                $file,
+                $e->getMessage()
+            ), $e->getCode(), $e);
+        } catch (ValidationFailedException $e) {
+            throw new ValidationFailedException(sprintf(
+                "هنگام رمزگذاری اعتبارسنجی شکست خورد %s:\n%s",
+                $file,
+                $e->getErrorsAsString()
+            ), $e->getErrors(), $e->getCode(), $e);
+        } catch (InvalidSchemaException $e) {
+            throw new InvalidSchemaException(sprintf(
+                'هنگام رمزگذاری خطا رخ داده است %s: %s',
+                $file,
+                $e->getMessage()
+            ), $e->getCode(), $e);
+        }
     }
 
     public function encode($data, $schema = null)
@@ -89,32 +118,6 @@ class JsonEncoder
             $encoded .= "\n";
         }
         return $encoded;
-    }
-
-
-    public function encodeFile($data, $file, $schema = null)
-    {
-        try {
-            file_put_contents($file, $this->encode($data, $schema));
-        } catch (EncodingFailedException $e) {
-            throw new EncodingFailedException(sprintf(
-                'هنگام رمزگذاری خطا رخ داده است %s: %s',
-                $file,
-                $e->getMessage()
-            ), $e->getCode(), $e);
-        } catch (ValidationFailedException $e) {
-            throw new ValidationFailedException(sprintf(
-                "هنگام رمزگذاری اعتبارسنجی شکست خورد %s:\n%s",
-                $file,
-                $e->getErrorsAsString()
-            ), $e->getErrors(), $e->getCode(), $e);
-        } catch (InvalidSchemaException $e) {
-            throw new InvalidSchemaException(sprintf(
-                'هنگام رمزگذاری خطا رخ داده است %s: %s',
-                $file,
-                $e->getMessage()
-            ), $e->getCode(), $e);
-        }
     }
 
     public function getArrayEncoding()

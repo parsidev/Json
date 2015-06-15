@@ -2,6 +2,12 @@
 
 use JsonSchema\Exception\InvalidArgumentException;
 use JsonSchema\Validator;
+use Parsidev\Json\Exception\DecodingFailedException;
+use Parsidev\Json\Exception\EncodingFailedException;
+use Parsidev\Json\Exception\FileNotFoundException;
+use Parsidev\Json\Exception\ValidationFailedException;
+use Parsidev\Json\Exception\InvalidSchemaException;
+
 
 class JsonValidator
 {

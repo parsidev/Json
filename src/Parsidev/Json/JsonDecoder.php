@@ -2,6 +2,11 @@
 
 use Seld\JsonLint\JsonParser;
 use Seld\JsonLint\ParsingException;
+use Parsidev\Json\Exception\DecodingFailedException;
+use Parsidev\Json\Exception\EncodingFailedException;
+use Parsidev\Json\Exception\FileNotFoundException;
+use Parsidev\Json\Exception\ValidationFailedException;
+use Parsidev\Json\Exception\InvalidSchemaException;
 
 class JsonDecoder
 {
