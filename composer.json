@@ -12,7 +12,7 @@
         "php": ">=5.4.0",
         "illuminate/support": "5.0.*",
         "justinrainbow/json-schema": "~1.3.7",
-        "seld/jsonlint": "dev-master"
+        "seld/jsonlint": "~1.0"
     },
     "autoload": {
         "psr-0": {
