@@ -6,6 +6,6 @@ class JsonFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'parsidev-json';
+        return 'parsJSON';
     }
 }

@@ -9,14 +9,14 @@ class JsonServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton(JsonWrapper::class, function ($app) {
+        $this->app->singleton('parsJSON', function ($app) {
             return $encoder = new JsonWrapper;
         });
     }
 
     public function provides()
     {
-        return ['parsidev-json'];
+        return ['parsJSON'];
     }
 
 }
