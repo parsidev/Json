@@ -1,6 +1,6 @@
 {
     "name": "parsidev/json",
-    "description": "JSON decoder/encoder for Laravel 5.4",
+    "description": "JSON decoder/encoder for Laravel 5.6",
     "license": "MIT",
     "authors": [
         {
@@ -9,9 +9,9 @@
         }
     ],
     "require": {
-        "php": ">=5.6.4",
-        "illuminate/support": "5.4.*",
-        "justinrainbow/json-schema": "4.1.*",
+        "php": ">=7.1.3",
+        "illuminate/support": "5.6.*",
+        "justinrainbow/json-schema": "5.x-dev",
         "seld/jsonlint": "1.*"
     },
     "autoload": {
@@ -19,5 +19,15 @@
             "Parsidev\\Json": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Parsidev\\Json\\JsonServiceProvider"
+            ],
+            "aliases": {
+                "ParsJSON": "Parsidev\\Json\\Facades\\JsonFacade"
+            }
+        }
+},
     "minimum-stability": "stable"
 }
